@@ -71,6 +71,6 @@ const styles = StyleSheet.create({
     fontSize: 12,
   },
   buttonPressed:{
-     opacity: .5
+     opacity: .5 
   }
 });
