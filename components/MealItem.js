@@ -6,23 +6,43 @@ import {
   StyleSheet,
   Platform,
 } from "react-native";
+import { useNavigation } from "@react-navigation/native";
+import MealDetails from "./MealDetails";
 
-const MealItem = ({ title, imageUrl, duration, complexity, affordability }) => {
+const MealItem = ({
+  id,
+  title,
+  imageUrl,
+  duration,
+  complexity,
+  affordability,
+}) => {
+  const navigation = useNavigation();
+  const pressHandler = () => {
+    navigation.navigate("MealDetail", {
+      mealId: id,
+    });
+  };
   return (
     <View style={styles.mealItem}>
-      <Pressable android_ripple={{ color : '#ccc' }} style={({pressed})=> pressed ? styles.buttonPressed : null}>
+      <Pressable
+        onPress={pressHandler}
+        android_ripple={{ color: "#ccc" }}
+        style={({ pressed }) => (pressed ? styles.buttonPressed : null)}
+      >
         <View style={styles.innerContainer}>
           <View>
             <Image style={styles.image} source={{ uri: imageUrl }} />
             <Text style={styles.title}>{title}</Text>
           </View>
-          <View style={styles.details}>
+          {/* <View style={styles.details}>
             <Text style={styles.detailsItem}>{duration}m</Text>
             <Text style={styles.detailsItem}>{complexity.toUpperCase()}</Text>
             <Text style={styles.detailsItem}>
               {affordability.toUpperCase()}
             </Text>
-          </View>
+          </View> */}
+          <MealDetails duration={duration} complexity={complexity} affordability={affordability}/>
         </View>
       </Pressable>
     </View>
@@ -44,9 +64,9 @@ const styles = StyleSheet.create({
     shadowRadius: 8,
     overflow: Platform.OS === "android" ? "hidden" : "visible",
   },
-  innerContainer:{
-     borderRadius: 8,
-     overflow: 'hidden'
+  innerContainer: {
+    borderRadius: 8,
+    overflow: "hidden",
   },
   image: {
     width: "100%",
@@ -58,19 +78,7 @@ const styles = StyleSheet.create({
     fontSize: 18,
     margin: 8,
   },
-  details: {
-    flexDirection: "row",
-    alignItems: "center",
-    padding: 8,
-    alignItems: "center",
-    justifyContent: "center",
-    
+  buttonPressed: {
+    opacity: 0.5,
   },
-  detailsItem: {
-    marginHorizontal: 4,
-    fontSize: 12,
-  },
-  buttonPressed:{
-     opacity: .5 
-  }
 });

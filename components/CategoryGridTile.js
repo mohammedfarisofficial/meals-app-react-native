@@ -7,10 +7,7 @@ import {
   Platform,
 } from "react-native";
 
-const CategoryGridTile = ({ title, color,onPress }) => {
-  let imageURL = {
-    uri: "https://images.pexels.com/photos/1410236/pexels-photo-1410236.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
-  };
+const CategoryGridTile = ({ title, color, onPress }) => {
   return (
     <View style={styles.gridItem}>
       <Pressable
@@ -21,9 +18,6 @@ const CategoryGridTile = ({ title, color,onPress }) => {
         ]}
         onPress={onPress}
       >
-        {/* <View>
-          <Image source={imageURL} /> 
-        </View> */}
         <View style={styles.innerContainer}>
           <Text style={styles.title}>{title}</Text>
         </View>
@@ -55,7 +49,7 @@ const styles = StyleSheet.create({
     padding: 16,
     justifyContent: "center",
     alignItems: "center",
-    borderRadius: 8
+    borderRadius: 8,
   },
   title: {
     fontWeight: "bold",
