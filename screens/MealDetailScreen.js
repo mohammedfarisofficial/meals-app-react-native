@@ -1,15 +1,39 @@
+import { useLayoutEffect } from "react";
 import { View, Text, Image, StyleSheet, ScrollView } from "react-native";
+import { Button } from "react-native-web";
+import IconButton from "../components/IconButton";
 import List from "../components/MealDetail/List";
 import Subtitle from "../components/MealDetail/Subtitle";
 import MealDetails from "../components/MealDetails";
 import { MEALS } from "../data/dummy-data";
+import { createDrawerNavigator } from '@react-navigation/drawer';
 
-const MealDetailScreen = ({ route }) => {
+
+const Drawer = createDrawerNavigator();
+const MealDetailScreen = ({ route, navigation }) => {
   const mealId = route.params.mealId;
 
   const selectedMeal = MEALS.find((meal) => meal.id === mealId);
+
+  const headerButtonPressHandler = () => {
+    console.log("pressed");
+  };
+
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      headerRight: () => {
+        return (
+          <IconButton
+            icon="star"
+            color="white"
+            onPress={headerButtonPressHandler}
+          />
+        );
+      },
+    });
+  }, [navigation, headerButtonPressHandler]);
   return (
-    <ScrollView style={styles. rootContainer}>
+    <ScrollView style={styles.rootContainer}>
       <Image style={styles.image} source={{ uri: selectedMeal.imageUrl }} />
       <Text style={styles.title}>{selectedMeal.title}</Text>
       <View>
@@ -35,8 +59,8 @@ const MealDetailScreen = ({ route }) => {
 export default MealDetailScreen;
 
 const styles = StyleSheet.create({
-  rootContainer:{
-    marginBottom: 32
+  rootContainer: {
+    marginBottom: 32,
   },
   image: {
     width: "100%",
@@ -56,7 +80,7 @@ const styles = StyleSheet.create({
     width: "80%",
   },
   listOuterContainer: {
-    width: '100%',
-    alignItems: 'center'
-  }
+    width: "100%",
+    alignItems: "center",
+  },
 });
